@@ -178,7 +178,7 @@ class graphite::params {
 
         /^8\.\d+/: {
           $apache_24        = true
-          $graphitepkgs     = union($common_os_pkgs,"${python}-cryptography") 
+          $graphitepkgs     = union($common_os_pkgs,["${python}-cryptography"]) 
           $service_provider = 'systemd'
         }
 
