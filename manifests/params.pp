@@ -135,7 +135,7 @@ class graphite::params {
       $nginx_web_group  = 'nginx'
       $nginx_web_user   = 'nginx'
 
-      if $::operatingsystem =~ /^[Aa]mazon$/ {
+      if $::operatingsystem =~ /^[Aa]mazon$/ or $facts['os']['release']['major'] == '8' {
         $_pyver          = regsubst($pyver, '\.', '')
         $python          = "python${_pyver}"
         $pyopenssl       = "${python}-pyOpenSSL"
@@ -150,7 +150,6 @@ class graphite::params {
         $python_pip_pkg  = $::osfamily ? {
           'RedHat'  => $::operatingsystemrelease ? {
             /^7/    => 'python2-pip',
-            /^8/    => 'python2-pip',
             default => 'python-pip'
           },
           default   => 'python-pip',
