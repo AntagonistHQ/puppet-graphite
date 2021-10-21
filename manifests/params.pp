@@ -45,9 +45,9 @@ class graphite::params {
   $pyver              = $::osfamily ? {
     'RedHat' => $::operatingsystemrelease ? {
       /^6/    => '2.6',
-      default => '3.6',
+      default => '3.9',
     },
-    default  => '3.6',
+    default  => '3.9',
   }
   case $::osfamily {
     'Debian': {
