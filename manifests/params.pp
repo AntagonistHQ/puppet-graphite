@@ -45,9 +45,9 @@ class graphite::params {
   $pyver              = $::osfamily ? {
     'RedHat' => $::operatingsystemrelease ? {
       /^6/    => '2.6',
-      default => '3.9',
+      default => '3.8',
     },
-    default  => '3.9',
+    default  => '3.8',
   }
   case $::osfamily {
     'Debian': {
@@ -138,7 +138,6 @@ class graphite::params {
       if $::operatingsystem =~ /^[Aa]mazon$/ or $facts['os']['release']['major'] == '8' {
         $_pyver          = regsubst($pyver, '\.', '')
         $python          = "python${_pyver}"
-        $pyopenssl       = "${python}-pyOpenSSL"
         $apache_wsgi_pkg = "mod_wsgi-${python}"
         $pytz            = "${python}-pytz"
         $python_pip_pkg  = "${python}-pip"
@@ -158,12 +157,8 @@ class graphite::params {
 
       $python_dev_pkg = ["${python}-devel", 'gcc']
       $common_os_pkgs = [
-        "MySQL-${python}",
-        $pyopenssl,
-        "${python}-ldap",
-        "${python}-memcached",
+        "${python}-PyMySQL",
         "${python}-psycopg2",
-        "${python}-zope-interface",
         $pytz,
       ]
 
