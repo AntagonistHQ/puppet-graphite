@@ -33,7 +33,7 @@ class graphite::params {
   $django_source         = undef
   $django_provider       = 'pip'
   $pip_install_options   = undef
-  $python_binary         = 'python'
+  $python_binary         = "python${pyver}"
 
   $install_prefix     = '/opt/'
 
