@@ -33,7 +33,6 @@ class graphite::params {
   $django_source         = undef
   $django_provider       = 'pip'
   $pip_install_options   = undef
-  $python_binary         = "python${pyver}"
 
   $install_prefix     = '/opt/'
 
@@ -49,6 +48,7 @@ class graphite::params {
     },
     default  => '3.8',
   }
+  $python_binary         = "python${pyver}"
   case $::osfamily {
     'Debian': {
       $python_pip_pkg            = 'python-pip'
