@@ -31,7 +31,7 @@ class graphite::params {
   $django_pkg            = 'Django'
   $django_ver            = '1.11'
   $django_source         = undef
-  $django_provider       = 'pip'
+  $django_provider       = 'pip3'
   $pip_install_options   = undef
 
   $install_prefix     = '/opt/'
