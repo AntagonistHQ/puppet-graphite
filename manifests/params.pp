@@ -20,13 +20,13 @@ class graphite::params {
   $txamqp_ver            = '0.4'
   $txamqp_source         = undef
   $graphite_pkg          = 'graphite-web'
-  $graphite_ver          = '1.1.7'
+  $graphite_ver          = '1.1.8'
   $graphite_source       = undef
   $carbon_pkg            = 'carbon'
-  $carbon_ver            = '1.1.7'
+  $carbon_ver            = '1.1.8'
   $carbon_source         = undef
   $whisper_pkg           = 'whisper'
-  $whisper_ver           = '1.1.7'
+  $whisper_ver           = '1.1.8'
   $whisper_source        = undef
   $django_pkg            = 'Django'
   $django_ver            = '1.11'
