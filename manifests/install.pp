@@ -13,8 +13,9 @@ class graphite::install inherits graphite::params {
   }
 
   if $::graphite::gr_pip_install and $::osfamily == 'RedHat' {
-    validate_re($::operatingsystemrelease, '^[6-8]\.\d+|^20\d{2}.\d{2}', "Unsupported RedHat release: '${::operatingsystemrelease}'"
-    )
+    if ($::operatingsystemrelease !~ '^[6-8]\.\d+|^20\d{2}.\d{2}') {
+      fail("Unsupported RedHat release: '${::operatingsystemrelease}'")
+    }
   }
 
   $pip_install_options = $::graphite::params::extra_pip_install_options ? {

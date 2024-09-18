@@ -563,7 +563,7 @@ class graphite (
   $gr_group                               = '',
   $gr_user                                = '',
   $gr_service_provider                    = $::graphite::params::service_provider,
-  $gr_enable_carbon_cache                 = true,
+  Boolean $gr_enable_carbon_cache         = true,
   $gr_max_cache_size                      = inf,
   $gr_max_updates_per_second              = 500,
   $gr_max_updates_per_second_on_shutdown  = undef,
@@ -627,15 +627,15 @@ class graphite (
   }
   ,
   $gr_web_server                          = 'apache',
-  $gr_web_server_port                     = 80,
-  $gr_web_server_port_https               = 443,
+  Integer $gr_web_server_port             = 80,
+  Integer $gr_web_server_port_https       = 443,
   $gr_web_servername                      = $::fqdn,
   $gr_web_group                           = undef,
   $gr_web_user                            = undef,
-  $gr_web_cors_allow_from_all             = false,
+  Boolean $gr_web_cors_allow_from_all     = false,
   $gr_web_server_remove_default           = undef,
   $gr_web_url_prefix                      = '/',
-  $gr_use_ssl                             = false,
+  Boolean $gr_use_ssl                     = false,
   $gr_ssl_cert                            = undef,
   $gr_ssl_key                             = undef,
   $gr_ssl_dir                             = undef,
@@ -643,14 +643,14 @@ class graphite (
   $gr_apache_conf_prefix                  = '',
   $gr_apache_24                           = $::graphite::params::apache_24,
   $gr_apache_noproxy                      = undef,
-  $gr_django_1_4_or_less                  = false,
+  Boolean $gr_django_1_4_or_less          = false,
   $gr_django_db_engine                    = 'django.db.backends.sqlite3',
   $gr_django_db_name                      = '/opt/graphite/storage/graphite.db',
   $gr_django_db_user                      = '',
   $gr_django_db_password                  = '',
   $gr_django_db_host                      = '',
   $gr_django_db_port                      = '',
-  $gr_enable_carbon_relay                 = false,
+  Boolean $gr_enable_carbon_relay         = false,
   $gr_relay_line_interface                = '0.0.0.0',
   $gr_relay_line_port                     = 2013,
   $gr_relay_enable_udp_listener           = 'False',
@@ -678,7 +678,7 @@ class graphite (
     ,
   }
   ,
-  $gr_enable_carbon_aggregator            = false,
+  Boolean $gr_enable_carbon_aggregator    = false,
   $gr_aggregator_line_interface           = '0.0.0.0',
   $gr_aggregator_line_port                = 2023,
   $gr_aggregator_enable_udp_listener      = 'False',
@@ -718,8 +718,8 @@ class graphite (
   $gr_cluster_store_merge_results         = 'True',
   $nginx_htpasswd                         = undef,
   $nginx_proxy_read_timeout               = 10,
-  $manage_ca_certificate                  = true,
-  $gr_use_ldap                            = false,
+  Boolean $manage_ca_certificate          = true,
+  Boolean $gr_use_ldap                    = false,
   $gr_ldap_uri                            = '',
   $gr_ldap_search_base                    = '',
   $gr_ldap_base_user                      = '',
@@ -728,9 +728,9 @@ class graphite (
   $gr_ldap_options                        = {
   }
   ,
-  $gr_use_remote_user_auth                = 'False',
+  String[1] $gr_use_remote_user_auth      = 'False',
   $gr_remote_user_header_name             = undef,
-  $gr_base_dir_managed_externally         = false,
+  Boolean $gr_base_dir_managed_externally = false,
   $gr_base_dir                            = '/opt/graphite',
   $gr_storage_dir                         = undef,
   $gr_local_data_dir                      = undef,
@@ -786,10 +786,10 @@ class graphite (
   $gr_django_source                       = $::graphite::params::django_source,
   $gr_django_provider                     = $::graphite::params::django_provider,
   $gr_pip_install_options                 = $::graphite::params::pip_install_options,
-  $gr_pip_install                         = true,
-  $gr_manage_python_packages              = true,
+  Boolean $gr_pip_install                 = true,
+  Boolean $gr_manage_python_packages      = true,
   $gr_python_binary                       = $::graphite::params::python_binary,
-  $gr_disable_webapp_cache                = false,
+  Boolean $gr_disable_webapp_cache        = false,
   $gr_enable_logrotation                  = true,
   $gr_carbonlink_query_bulk               = undef,
   $gr_carbonlink_hashing_type             = undef,
@@ -799,33 +799,11 @@ class graphite (
   $gr_prefetch_cache                      = undef,
   $gr_apache_port                         = undef,
   $gr_apache_port_https                   = undef,
-  $gr_tags_enable                         = false,) inherits graphite::params {
-  # Validation of input variables.
-  # TODO - validate all the things
-  validate_string($gr_use_remote_user_auth)
-
-  # validate bools
-  validate_bool($gr_enable_carbon_cache)
-  validate_bool($gr_web_cors_allow_from_all)
-  validate_bool($gr_use_ssl)
-  validate_bool($gr_django_1_4_or_less)
-  validate_bool($gr_enable_carbon_relay)
-  validate_bool($gr_enable_carbon_aggregator)
-  validate_bool($manage_ca_certificate)
-  validate_bool($gr_use_ldap)
-  validate_bool($gr_pip_install)
-  validate_bool($gr_manage_python_packages)
-  validate_bool($gr_disable_webapp_cache)
-  validate_bool($gr_base_dir_managed_externally)
-  validate_bool($gr_tags_enable)
+  Boolean $gr_tags_enable                 = false,) inherits graphite::params {
 
   if $gr_apache_port or $gr_apache_port_https {
     fail('$gr_apache_port and $gr_apache_port_https are deprecated in favour of $gr_web_server_port and $gr_web_server_port_https')
   }
-
-  # validate integers
-  validate_integer($gr_web_server_port)
-  validate_integer($gr_web_server_port_https)
 
   $base_dir_REAL                    = $gr_base_dir
   $storage_dir_REAL                 = pick($gr_storage_dir,            "${base_dir_REAL}/storage")
